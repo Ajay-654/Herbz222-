@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile Card</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#ff7e5f,#feb47b);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+  }
+  .card{
+    width:380px;
+    background:#fff;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    padding:25px;
+    text-align:center;
+  }
+  .profile-img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    margin:0 auto 20px;
+    border:3px solid #ff7e5f;
+    background-color:#eee;
+    background-size:cover;
+    background-position:center;
+    cursor:pointer;
+  }
+  .field{margin:12px 0;text-align:left}
+  label{font-weight:600;color:#ff7e5f;font-size:15px}
+  input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
+  }
+  .btn{
+    background:#ff7e5f;
+    color:#fff;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    margin-top:15px;
+    transition:background .3s;
+  }
+  .btn:hover{background:#feb47b}
+  .view-field{
+    display:flex;
+    justify-content:space-between;
+    padding:6px 0;
+    font-size:16px;
+  }
+  .label{color:#ff7e5f;font-weight:600}
+  .value{color:#333}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="profile-img" id="profileImg" style="background-image:url('https://via.placeholder.com/150?text=Photo');" onclick="openFile()"></div>
+  <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="changePhoto(event)">
+
+  <!-- Form Section -->
+  <div id="formSection">
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="username" placeholder="Enter your name">
+    </div>
+    <div class="field">
+      <label>Mobile Number</label>
+      <input type="tel" id="mobile" placeholder="Enter mobile number">
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Enter email">
+    </div>
+    <div class="field">
+      <label>Date of Birth</label>
+      <input type="date" id="dob">
+    </div>
+    <button class="btn" id="submitBtn" onclick="saveProfile()">Submit</button>
+  </div>
+
+  <!-- Display Section -->
+  <div id="displaySection" style="display:none;">
+    <div class="view-field"><span class="label">Username:</span><span class="value" id="dName"></span></div>
+    <div class="view-field"><span class="label">Mobile:</span><span class="value" id="dMobile"></span></div>
+    <div class="view-field"><span class="label">Email:</span><span class="value" id="dEmail"></span></div>
+    <div class="view-field"><span class="label">DOB:</span><span class="value" id="dDob"></span></div>
+    <button class="btn" id="editBtn" onclick="editProfile()">Edit Profile</button>
+  </div>
+</div>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const profileImg = document.getElementById('profileImg');
+  let photoData = '';
+
+  function openFile() {
+    fileInput.click();
+  }
+
+  function changePhoto(e) {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      photoData = ev.target.result;
+      profileImg.style.backgroundImage = `url('${photoData}')`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  window.onload = function() {
+    const saved = JSON.parse(localStorage.getItem('userProfile'));
+    if(saved) {
+      photoData = saved.photo;
+      profileImg.style.backgroundImage = `url('${photoData}')`;
+      showProfile(saved);
+    }
+  };
+
+  function saveProfile() {
+    const name = document.getElementById('username').value.trim();
+    const mobile = document.getElementById('mobile').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const dob = document.getElementById('dob').value;
+
+    if(!name || !mobile || !email || !dob) {
+      alert('Please fill all fields!');
+      return;
+    }
+
+    const data = {
+      name, mobile, email, dob,
+      photo: photoData || 'https://via.placeholder.com/150?text=Photo'
+    };
+
+    localStorage.setItem('userProfile', JSON.stringify(data));
+    showProfile(data);
+  }
+
+  function showProfile(data) {
+    document.getElementById('formSection').style.display = 'none';
+    document.getElementById('displaySection').style.display = 'block';
+
+    document.getElementById('dName').textContent = data.name;
+    document.getElementById('dMobile').textContent = data.mobile;
+    document.getElementById('dEmail').textContent = data.email;
+    document.getElementById('dDob').textContent = data.dob;
+  }
+
+  function editProfile() {
+    const saved = JSON.parse(localStorage.getItem('userProfile'));
+    if(!saved) return;
+
+    document.getElementById('formSection').style.display = 'block';
+    document.getElementById('displaySection').style.display = 'none';
+
+    document.getElementById('username').value = saved.name;
+    document.getElementById('mobile').value = saved.mobile;
+    document.getElementById('email').value = saved.email;
+    document.getElementById('dob').value = saved.dob;
+  }
+</script>
+
+</body>
+</html>

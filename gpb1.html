@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GPB-111 Topics</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #3F51B5, #5A8DEE);
+      font-family: "Poppins", sans-serif;
+      padding: 20px;
+      color: #fff;
+    }
+
+    .container{
+      max-width: 760px;
+      margin:  auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 18px;
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .card {
+      background: #ffffff;
+      margin: 10px 0;
+      padding: 14px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.18);
+      color: #333;
+      font-size: 17px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1></h1>
+
+    <div class="card" onclick="openTopic('Mendelian & Pre-Mendelian Concepts')">
+      1. Mendelian & Pre-Mendelian Concepts
+    </div>
+
+    <div class="card" onclick="openTopic('Chromosomes & Chromosomal Theory of Inheritance')">
+      2. Chromosomes & Chromosomal Theory of Inheritance
+    </div>
+
+    <div class="card" onclick="openTopic('Gene Interactions & Multiple Alleles')">
+      3. Gene Interactions & Multiple Alleles
+    </div>
+
+    <div class="card" onclick="openTopic('Mutation & Variations')">
+      4. Mutation & Variations
+    </div>
+
+    <div class="card" onclick="openTopic('Quantitative & Cytoplasmic Inheritance')">
+      5. Quantitative & Cytoplasmic Inheritance
+    </div>
+
+    <div class="card" onclick="openTopic('Molecular Genetics Basics')">
+      6. Molecular Genetics Basics
+    </div>
+  </div>
+
+  <script>
+    function openTopic(name){
+      // यह लाइन पेज को अगले HTML पेज पर ले जाती है
+      window.location.href = "topic.html?name=" + encodeURIComponent(name);
+    }
+  </script>
+</body>
+</html>

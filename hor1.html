@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HOR-111 Topics</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #3F51B5, #5A8DEE);
+      font-family: "Poppins", sans-serif;
+      padding: 20px;
+      color: #fff;
+    }
+
+    .container{
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 18px;
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .card {
+      background: #ffffff;
+      margin: 10px 0;
+      padding: 14px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.18);
+      color: #333;
+      font-size: 17px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+
+
+    <div class="card" onclick="openTopic('Introduction to Horticulture')">
+      1. Introduction to Horticulture
+    </div>
+
+    <div class="card" onclick="openTopic('Plant Propagation Methods')">
+      2. Plant Propagation (Sexual & Asexual)
+    </div>
+
+    <div class="card" onclick="openTopic('Orchard Management Principles')">
+      3. Orchard Management
+    </div>
+
+    <div class="card" onclick="openTopic('Training and Pruning of Fruit Crops')">
+      4. Training & Pruning
+    </div>
+
+    <div class="card" onclick="openTopic('Pollination and Fruit Development')">
+      5. Pollination & Fruit Development
+    </div>
+
+    <div class="card" onclick="openTopic('Growth Regulators Irrigation and Fertilizers')">
+      6. Growth Regulators, Irrigation & Fertilizers
+    </div>
+
+  </div>
+
+  <script>
+    function openTopic(name){
+      // अगला पेज ओपन करेगा
+      window.location.href = "topic.html?name=" + encodeURIComponent(name);
+    }
+  </script>
+
+</body>
+</html>

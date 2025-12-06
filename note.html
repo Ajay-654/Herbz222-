@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title></title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffffff; /* White background */
+      color: #111827;
+    }
+
+    /* Header */
+    .app-header {
+      background: #2563eb;
+      color: white;
+      padding: 18px 22px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    /* Page Container */
+    .container {
+      padding: 22px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding-bottom: 100px;
+    }
+
+    /* Grid Buttons */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Smaller buttons */
+      gap: 15px;
+    }
+
+    .card-btn {
+      background: #facc15; /* Yellow buttons */
+      border-radius: 12px;
+      padding: 14px;         /* Smaller button size */
+      text-decoration: none;
+      color: #000;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+      transition: 0.2s;
+      border: 2px solid transparent;
+    }
+
+    .card-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.20);
+      border-color: #eab308;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #444;
+      text-decoration: none;
+    }
+
+    .nav-item:hover { color: #2563eb; }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="app-header">Notes </div>
+
+  <div class="container">
+
+    <div class="grid">
+
+      <a class="card-btn" href="skill_enhancement_i.html">Skill Enhancement Course – I</a>
+
+      <a class="card-btn" href="skill_enhancement_ii.html">Skill Enhancement Course – II</a>
+
+      <a class="card-btn" href="communication_skills.html">Communication Skills</a>
+
+      <a class="card-btn" href="agr1.html">Farming Based Livelihood Systems</a>
+
+      <a class="card-btn" href="livestock_management.html">Livestock & Poultry Management</a>
+
+      <a class="card-btn" href="agr2.html">Fundamentals of Agronomy</a>
+
+      <a class="card-btn" href="soil_science.html">Fundamentals of Soil Science</a>
+
+      <a class="card-btn" href="horticulture.html">Fundamentals of Horticulture</a>
+
+      <a class="card-btn" href="gpb1.html">Principles of Genetics</a>
+
+    </div>
+
+</body>
+</html>

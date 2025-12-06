@@ -1,0 +1,428 @@
+)<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herbz</title>
+<style>
+        /* Global Styling */
+        
+        /* FIX 1: Ensures NO horizontal scrolling for the entire viewport */
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            /* Removed overflow-x: hidden from body */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Side Menu Styling */
+       
+        .side-menu {
+          width: 250px;
+          background-color: #ffffff;
+          height: 100%; 
+          /* FIX 2: Box-shadow removed when hidden to prevent edge visibility */
+          box-shadow: none; 
+          padding: 20px 10px;
+          position: fixed;
+          top: 0;
+          /* FIX 3: Push menu further out to eliminate white edge */
+          left: -300px; 
+          transition: left 0.3s ease; 
+          z-index: 1000;
+          overflow-y: auto; 
+        }
+
+        .side-menu a {
+          display: block;
+          padding: 12px 20px;
+          margin: 10px 0;
+          text-decoration: none;
+          color: #333;
+          font-size: 16px;
+          font-weight: bold;
+          border-radius: 8px; 
+          transition: background-color 0.3s, color 0.3s, transform 0.1s;
+        }
+
+        .side-menu a:hover {
+          background-color: #e6f0ff;
+          color: #007bff;
+        }
+        
+        .side-menu a:active { 
+          background-color: #007bff;
+          color: #ffffff;
+          transform: scale(0.98);
+        }
+
+        .side-menu .menu-header {
+          font-size: 24px;
+          font-weight: bold;
+          color: #007bff; 
+          text-align: center;
+          margin-bottom: 30px;
+          padding-top: 10px;
+          border-bottom: 2px solid #e1e1e1;
+          padding-bottom: 10px;
+        }
+        
+        /* FIX 4: Apply box-shadow only when the menu is active/open */
+        .side-menu.active {
+            left: 0;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3); 
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #0078D7;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.4em;
+            flex-grow: 1;
+            padding-left: 20px; 
+            text-align: center;
+        }
+
+        .menu-icon, header button {
+            font-size: 1.5em;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            padding: 5px;
+            margin: 0 5px;
+            transition: transform 0.1s;
+        }
+        
+        header button:active, .menu-icon:active {
+            transform: scale(0.9);
+        }
+
+        /* Overlay for when menu is open */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            z-index: 5;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 20px;
+            padding-bottom: 90px;
+            text-align: center;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        
+        .main-content h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .main-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: flex;
+            overflow-x: scroll;
+            gap: 15px;
+            padding: 10px 0;
+            scroll-snap-type: x mandatory;
+            margin-top: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .image-gallery img {
+            min-width: 250px;
+            height: 150px;
+            object-fit: cover;
+            scroll-snap-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.03);
+        }
+
+        /* YouTube Video Embed */
+        .youtube-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto 20px auto;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .youtube-container iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+
+        /* Social Media Icons */
+        .social-icons {
+            margin-top: 20px;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            font-size: 1em;
+            color: #0078D7;
+            padding: 8.5px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #ffffff;
+            background-color: #0078D7;
+        }
+        
+        .social-icons a:active {
+            transform: scale(0.95);
+        }
+
+        /* Floating Action Button (FAB) */
+        .fab {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            font-size: 2em;
+            line-height: 56px;
+            text-align: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .fab:hover {
+            background-color: #218838;
+        }
+        
+        .fab:active {
+            transform: scale(0.9);
+        }
+
+        /* Bottom Navigation Bar */
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: #ffffff;
+            border-top: 1px solid #e1e1e1;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.08);
+            height: 60px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #6c757d;
+            padding: 0;
+            font-size: 10px;
+            font-weight: 500;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-basis: 25%;
+            transition: color 0.3s, transform 0.1s;
+        }
+        
+        .navbar a[href="home.html"] {
+            color: #0078D7; 
+            font-weight: 700;
+        }
+
+        .navbar a img {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 2px;
+        }
+
+        .navbar a:hover {
+            background-color: transparent;
+            color: #0078D7;
+            transform: scale(1.05);
+        }
+        
+        .navbar a:active {
+            transform: scale(0.95);
+        }
+
+        /* Media Queries for Mobile Devices */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 80%;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .main-content {
+                padding: 15px;
+                padding-bottom: 70px;
+            }
+
+            .image-gallery img {
+                min-width: 220px;
+                height: 130px;
+            }
+
+            .fab {
+                bottom: 75px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.8em;
+                line-height: 50px;
+            }
+            
+            .navbar {
+                height: 55px;
+            }
+            
+            .navbar a img {
+                width: 22px;
+                height: 22px;
+            }
+        }
+</style>
+  </head>
+  <body>
+    <div class="side-menu" id="sideMenu">
+        <div class="menu-header">Herbz Menu</div>
+        <a href="profile1.html">👨🏻‍💼 Profile</a>
+        <a href="">🎮 Winner MCQ</a>
+        <a href="help.html">💭 Help</a>
+        <a href="about1.html">ℹ️ About</a>
+        <a href="shere1.html">🔁 Share</a>
+        <a href="logout1.html">╰┈➤ Log out</a>
+    </div>
+
+    <div class="overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <header>
+        <span class="menu-icon" onclick="toggleMenu()">☰</span>
+        <h1>Herbz 222</h1>
+        <button onclick="window.location.href='search.html'">🔍</button>
+    </header>
+
+    <div class="main-content">
+        <h1>Welcome</h1>
+        <p>कलम की ताकत तलवार से बड़ी होती है, ज्ञान की रोशनी हर अंधेरे को मिटाती है।</p>
+
+        <img src="myphoto1.jpg" alt="Educational Image 1" style="width: 100%; height: auto; margin-bottom: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+
+        <h3 style="color: #0078D7; margin-top: 0; font-style: italic;">"हर ख्वाब को अपने सांसों में रखो, हर मंजिल को अपनी बाहों में रखो।"</h3>
+        
+        <div class="image-gallery">
+            <img src="0.jpg" alt="Educational Image 1">
+            <img src="1.jpg" alt="Educational Image 2">
+            <img src="6.jpg" alt="Educational Image 3">
+            <img src="4.jpg" alt="Educational Image 4">
+            <img src="3.jpg" alt="Educational Image 5">
+            <img src="5.jpg" alt="Educational Image 6">
+            <img src="7.jpg" alt="Educational Image 8">
+        </div>
+
+        <div class="youtube-container">
+            <iframe src="https://www.Youtube.com/embed/VRHDA-F7OV4" title="YouTube video player" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://www.youtube.com/@herbz222" target="_blank">📺 YouTube</a>
+            <a href="https://t.me/+IUBXFpSZS284ODk9" target="_blank">✈️ Telegram</a>
+            <a href="https://whatsapp.com/channel/0029Vaw71dTKLaHovGTgUA13" target="_blank">💬 WhatsApp</a>
+        </div>
+    </div>
+
+    <button class="fab" onclick="window.location.href='more.html'">+</button>
+
+    <nav class="navbar">
+        <a href="home.html">
+            <img src="home.png" alt="Home">
+            <span>Home</span>
+        </a>
+        <a href="note.html">
+            <img src="notes.png" alt="Notes">
+            <span>Notes</span>
+        </a>
+        <a href="paper.html">
+            <img src="paper.png" alt="Papers">
+            <span>Papers</span>
+        </a>
+        <a href="video.html">
+            <img src="video.png" alt="Video">
+            <span>Video</span>
+        </a>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            const overlay = document.getElementById('menuOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social App Launcher</title>
+
+<style>
+    body{
+        margin:0;
+        background:#0e0f12;
+        font-family:Arial, sans-serif;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        color:white;
+    }
+
+    .app{
+        width:100%;
+        max-width:420px;
+        background:#1b1e24;
+        height:92vh;
+        border-radius:28px;
+        padding:25px;
+        box-shadow:0 0 30px rgba(0,0,0,0.5);
+
+        /* Buttons को center करने के लिए */
+        display:flex;
+        flex-direction:column;
+        justify-content:center;  /* ← यही बटन को बीच मे लाता है */
+        align-items:center;
+        gap:20px;
+    }
+
+    .header{
+        text-align:center;
+        font-size:24px;
+        font-weight:bold;
+        margin-bottom:20px;
+        position:absolute;
+        top:40px;
+        width:100%;
+    }
+
+    .btn{
+        width:100%;
+        padding:18px;
+        border-radius:16px;
+        font-size:20px;
+        font-weight:bold;
+        text-align:center;
+        cursor:pointer;
+        color:white;
+        border:none;
+        max-width:320px;
+    }
+
+    /* Instagram = Pink */
+    .insta{
+        background:#ff2e75;
+        box-shadow:0 4px 12px rgba(255,46,117,0.5);
+    }
+
+    /* WhatsApp = Green */
+    .wa{
+        background:#25D366;
+        color:black;
+        box-shadow:0 4px 12px rgba(37,211,102,0.5);
+    }
+
+    /* Telegram = Blue */
+    .tg{
+        background:#229ED9;
+        box-shadow:0 4px 12px rgba(34,158,217,0.5);
+    }
+
+    .footer{
+        position:absolute;
+        bottom:20px;
+        width:100%;
+        text-align:center;
+        font-size:12px;
+        color:#6c7280;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+
+
+    <!-- Instagram Button -->
+    <button class="btn insta" 
+        onclick="window.open('https://www.instagram.com/______ajay________maurya____?igsh=MnJvbThzaDI0Zmlw','_blank')">
+        Instagram 
+    </button>
+
+    <!-- WhatsApp Button -->
+    <button class="btn wa"
+        onclick="window.open('https://wa.me/message/BJA4YJAW7UG3E1?src=qr','_blank')">
+        WhatsApp 
+    </button>
+
+    <!-- Telegram Button -->
+    <button class="btn tg" 
+        onclick="window.open('https://t.me/+aemP6vEzKV9kNGE1','_blank')">
+        Telegram 
+    </button>
+
+    <div class="footer">© 2025 App Style</div>
+
+</div>
+
+</body>
+</html>
